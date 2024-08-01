@@ -1,0 +1,35 @@
+{% extends "main.html" %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    {% if weather_data %}
+      {% for city_weather in weather_data %}
+        <div class="col-md-6">
+          <div class="card mb-4">
+            <div class="card-body">
+              <h1>{{ city_weather.city }}</h1>
+              <p class="card-text">Temperature: {{ city_weather.temperature }}°C</p>
+              <p class="card-text">Humidity: {{ city_weather.humidity }}%</p>
+              <p class="card-text">Wind Speed: {{ city_weather.wind_speed }} m/s</p>
+              <p class="card-text">Description: {{ city_weather.weather_description }}</p>
+              <img
+                src="https://www.weatherbit.io/static/img/icons/{{ city_weather.weather_icon }}.png"
+                alt="Weather Icon"
+                class="img-fluid"
+              />
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <div class="col-md-6">
+        <p>Not subscribed to any cities yet.</p>
+      </div>
+    {% endif %}
+  </div>
+  <div class="text-center mt-3">
+    <a href="{% url 'add_subscription' %}" class="btn btn-primary">Add subscription</a>
+  </div>
+</div>
+{% endblock %}
